@@ -5,22 +5,29 @@ import { fullVS, center, c, fRow } from "./styles";
 import { stylizer } from "./utils";
 import Game from "./classes/Game";
 import movePiece from "./rules";
+import selectPiece from "./rules/select";
 
 const App = () => {
   const { vw, vh } = useClientDimensions();
   const [game, setGame] = useState(new Game());
   const [clickedPiece, setClickedPiece] = useState(null);
+  const [player1Turn, setPlayer1Turn] = useState(true);
+
+  // Logging game state
+  // console.log(game);
 
   const handleClick = useCallback(
     square => {
       // check if a piece has not been clicked upon yet
       if (clickedPiece === null || square.piece !== null) {
-        setClickedPiece(square.piece);
+        selectPiece(player1Turn, square, setClickedPiece);
+        // setClickedPiece(square.piece);
       } else {
         movePiece(clickedPiece, square, setClickedPiece);
+        setPlayer1Turn(prev => !prev);
       }
     },
-    [clickedPiece]
+    [clickedPiece, player1Turn]
   );
 
   if (vw < 600 || vh < 600) {
