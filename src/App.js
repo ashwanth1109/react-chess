@@ -4,6 +4,7 @@ import useClientDimensions from "./hooks/useClientDimensions";
 import { fullVS, center, c, fRow } from "./styles";
 import { stylizer } from "./utils";
 import Game from "./classes/Game";
+import movePiece from "./rules";
 
 const App = () => {
   const { vw, vh } = useClientDimensions();
@@ -16,14 +17,7 @@ const App = () => {
       if (clickedPiece === null || square.piece !== null) {
         setClickedPiece(square.piece);
       } else {
-        // remove piece from original square
-        clickedPiece.square.removePiece();
-        // let piece know which square it will be placed in
-        clickedPiece.changeSquare(square);
-        // let square know that piece has moved on to it
-        square.setPiece(clickedPiece);
-        // remove clickedPiece from state
-        setClickedPiece(null);
+        movePiece(clickedPiece, square, setClickedPiece);
       }
     },
     [clickedPiece]

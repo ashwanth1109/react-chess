@@ -24,6 +24,17 @@ class Game {
       }
       this.board.push(arr);
     }
+
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        const square = this.board[i][j];
+        const up = i - 1 >= 0 ? this.board[i - 1][j] : null;
+        const down = i + 1 < 8 ? this.board[i + 1][j] : null;
+        const left = j - 1 >= 0 ? this.board[i][j - 1] : null;
+        const right = j + 1 < 8 ? this.board[i][j + 1] : null;
+        square.setNeighbours(up, down, left, right);
+      }
+    }
   }
 }
 
