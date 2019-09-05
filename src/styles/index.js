@@ -23,5 +23,7 @@ export const c = {
   white: "#EFF5FD",
   black: "#000000",
   red: "#CC0000",
-  gray: "#545454"
+  gray: "#545454",
+  lBlack: "#454545",
+  lRed: "#D94545"
 };

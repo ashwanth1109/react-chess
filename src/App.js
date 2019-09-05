@@ -58,11 +58,22 @@ const App = () => {
                     width: "75px",
                     height: "75px",
                     background: square.isLight ? c.white : c.blue,
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    position: "relative"
                   },
                   center
                 ])}
               >
+                {clickedPiece !== null && clickedPiece === square.piece ? (
+                  <div
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      background: square.piece.player === 1 ? c.lRed : c.lBlack
+                    }}
+                  />
+                ) : null}
                 {square.piece ? (
                   <div
                     style={{
