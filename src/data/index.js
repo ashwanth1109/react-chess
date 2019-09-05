@@ -1,10 +1,28 @@
 export const pieces = {
-  king: "♚",
-  queen: "♛",
-  rook: "♜",
-  bishop: "♝",
-  knight: "♞",
-  pawn: "♟"
+  king: {
+    symbol: "♚",
+    name: "king"
+  },
+  queen: {
+    symbol: "♛",
+    name: "queen"
+  },
+  rook: {
+    symbol: "♜",
+    name: "rook"
+  },
+  bishop: {
+    symbol: "♝",
+    name: "bishop"
+  },
+  knight: {
+    symbol: "♞",
+    name: "knight"
+  },
+  pawn: {
+    symbol: "♟",
+    name: "pawn"
+  }
 };
 
 const { rook, knight, bishop, queen, king } = pieces;
