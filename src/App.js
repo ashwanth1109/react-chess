@@ -18,22 +18,25 @@ const App = () => {
 
   const handleClick = useCallback(
     square => {
-      // check if a piece has not been clicked upon yet
-      if (clickedPiece === null || square.piece !== null) {
+      if (
+        clickedPiece === null || // check if a piece has not been clicked upon yet
+        (square.piece !== null && square.piece.player === (player1Turn ? 1 : 2))
+        // or check if player changes his mind and wants to move some other piece
+      ) {
+        // check for rules to select a piece
         selectPiece(player1Turn, square, setClickedPiece);
-        // setClickedPiece(square.piece);
       } else {
-        movePiece(clickedPiece, square, setClickedPiece);
-        setPlayer1Turn(prev => !prev);
+        // check for rules to move a piece
+        movePiece(clickedPiece, square, setClickedPiece, setPlayer1Turn);
       }
     },
     [clickedPiece, player1Turn]
   );
 
-  if (vw < 600 || vh < 600) {
+  if (vw < 800 || vh < 600) {
     return (
       <div style={stylizer([fullVS, center])}>
-        Sorry, App only works on screens larger than 600px wide and 600px high
+        Sorry, App only works on screens larger than 800px wide and 600px high
       </div>
     );
   }
@@ -41,8 +44,9 @@ const App = () => {
   return (
     <div style={stylizer([fullVS, center, { background: c.gray }])}>
       <div style={stylizer([{ width: "600px", height: "600px" }])}>
-        {game.board.map(row => (
+        {game.board.map((row, id) => (
           <div
+            key={id}
             style={stylizer([
               {
                 width: "100%",
@@ -51,8 +55,9 @@ const App = () => {
               fRow
             ])}
           >
-            {row.map(square => (
+            {row.map((square, id) => (
               <div
+                key={id}
                 onClick={() => handleClick(square)}
                 style={stylizer([
                   {
