@@ -1,4 +1,6 @@
 import movePawn from "./pawn";
+import moveKing from "./king";
+import moveQueen from "./queen";
 
 const movePiece = (clickedPiece, square, setClickedPiece, setPlayer1Turn) => {
   const moveSuccessfully = () => {
@@ -17,6 +19,12 @@ const movePiece = (clickedPiece, square, setClickedPiece, setPlayer1Turn) => {
   switch (clickedPiece.name) {
     case "pawn":
       movePawn(clickedPiece, square, moveSuccessfully);
+      break;
+    case "king":
+      moveKing(clickedPiece, square, moveSuccessfully);
+      break;
+    case "queen":
+      moveQueen(clickedPiece, square, moveSuccessfully);
       break;
     default:
       moveSuccessfully();
