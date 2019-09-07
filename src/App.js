@@ -1,8 +1,14 @@
 import React, { useState, useCallback } from "react";
-
-import useClientDimensions from "./hooks/useClientDimensions";
-import { fullVS, center, c, fRow } from "./styles";
-import { stylizer } from "./utils";
+import useClientDimensions from "react-client-dimensions";
+import {
+  NoAppContainer,
+  GameRow,
+  Highlight,
+  GameBoard,
+  AppContainer,
+  GameSquare,
+  GamePiece
+} from "./styles";
 import Game from "./classes/Game";
 import movePiece from "./rules";
 import selectPiece from "./rules/select";
@@ -35,67 +41,37 @@ const App = () => {
 
   if (vw < 800 || vh < 600) {
     return (
-      <div style={stylizer([fullVS, center])}>
+      <NoAppContainer>
         Sorry, App only works on screens larger than 800px wide and 600px high
-      </div>
+      </NoAppContainer>
     );
   }
 
   return (
-    <div style={stylizer([fullVS, center, { background: c.gray }])}>
-      <div style={stylizer([{ width: "600px", height: "600px" }])}>
+    <AppContainer>
+      <GameBoard>
         {game.board.map((row, id) => (
-          <div
-            key={id}
-            style={stylizer([
-              {
-                width: "100%",
-                height: "75px"
-              },
-              fRow
-            ])}
-          >
+          <GameRow key={id}>
             {row.map((square, id) => (
-              <div
+              <GameSquare
                 key={id}
                 onClick={() => handleClick(square)}
-                style={stylizer([
-                  {
-                    width: "75px",
-                    height: "75px",
-                    background: square.isLight ? c.white : c.blue,
-                    cursor: "pointer",
-                    position: "relative"
-                  },
-                  center
-                ])}
+                isLight={square.isLight}
               >
                 {clickedPiece !== null && clickedPiece === square.piece ? (
-                  <div
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                      background: square.piece.player === 1 ? c.lRed : c.lBlack
-                    }}
-                  />
+                  <Highlight player1={square.piece.player === 1} />
                 ) : null}
                 {square.piece ? (
-                  <div
-                    style={{
-                      fontSize: "50px",
-                      color: square.piece.player === 1 ? c.red : c.black
-                    }}
-                  >
+                  <GamePiece player1={square.piece.player === 1}>
                     {square.piece.symbol}
-                  </div>
+                  </GamePiece>
                 ) : null}
-              </div>
+              </GameSquare>
             ))}
-          </div>
+          </GameRow>
         ))}
-      </div>
-    </div>
+      </GameBoard>
+    </AppContainer>
   );
 };
 

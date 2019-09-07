@@ -1,29 +1,46 @@
-export const fullVS = {
-  width: "100vw",
-  height: "100vh"
-};
+import styled from "styled-components";
 
-export const center = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
+import { fullVS, center, fRow, c } from "./common";
 
-export const testBG = {
-  background: "#ed5"
-};
+const container = `${fullVS} ${center}`;
 
-export const fRow = {
-  display: "flex",
-  flexDirection: "row"
-};
+export const NoAppContainer = styled.div`
+  ${container}
+`;
 
-export const c = {
-  blue: "#5096F3",
-  white: "#EFF5FD",
-  black: "#000000",
-  red: "#CC0000",
-  gray: "#545454",
-  lBlack: "#454545",
-  lRed: "#D94545"
-};
+export const AppContainer = styled.div`
+  ${container} 
+  background: ${c.gray};
+`;
+
+export const GameBoard = styled.div`
+  width: 600px;
+  height: 600px;
+`;
+
+export const GameRow = styled.div`
+  ${fRow}
+  width: 100%;
+  height: 75px;
+`;
+
+export const GameSquare = styled.div`
+  ${center}
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  position: relative;
+  background: ${props => (props.isLight ? c.white : c.blue)};
+`;
+
+export const Highlight = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: ${props => (props.player1 ? c.lRed : c.lBlack)};
+`;
+
+export const GamePiece = styled.div`
+  font-size: 50px;
+  color: ${props => (props.player1 ? c.red : c.black)};
+`;
