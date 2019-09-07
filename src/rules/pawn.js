@@ -28,7 +28,9 @@ const movePawn = (clickedPiece, nextSquare, moveSuccessfully) => {
       currentSquare.up.left === nextSquare;
 
     const attackingMovement =
-      nextSquare.piece !== null && (player1Attack || player2Attack);
+      nextSquare.piece !== null &&
+      ((clickedPiece.player === 1 && player1Attack) ||
+        (clickedPiece.player === 2 && player2Attack));
 
     return noPieceMovement || attackingMovement;
   };
