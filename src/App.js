@@ -24,17 +24,16 @@ const App = () => {
 
   const handleClick = useCallback(
     square => {
-      if (
-        clickedPiece === null || // check if a piece has not been clicked upon yet
-        (square.piece !== null && square.piece.player === (player1Turn ? 1 : 2))
-        // or check if player changes his mind and wants to move some other piece
-      ) {
-        // check for rules to select a piece
+      // piece hasn't been selected yet
+      const noPiece = clickedPiece === null;
+      // or player changes his mind about piece s/he wants to move
+      const ownPiece =
+        square.piece !== null && square.piece.player === (player1Turn ? 1 : 2);
+
+      // if noPiece or ownPiece, then select piece
+      if (noPiece || ownPiece)
         selectPiece(player1Turn, square, setClickedPiece);
-      } else {
-        // check for rules to move a piece
-        movePiece(clickedPiece, square, setClickedPiece, setPlayer1Turn);
-      }
+      else movePiece(clickedPiece, square, setClickedPiece, setPlayer1Turn); // else check if move is possible
     },
     [clickedPiece, player1Turn]
   );
