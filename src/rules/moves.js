@@ -29,6 +29,7 @@ export const normalMove = (direction, appState, anyDistance) => {
       // TODO: You can generalize pawn and king's single movement here?
     }
   }
+  // movement not possible
   return false;
 };
 
@@ -70,5 +71,37 @@ export const diagonalMove = (directions, appState, anyDistance) => {
       // TODO: handle single diagonal move for pawn?
     }
   }
+  // movement not possible
+  return false;
+};
+
+export const knightMove = (directions, appState) => {
+  const [d1, d2] = directions; // up and left
+  const { clickedPiece, nextSquare } = appState;
+
+  let { square } = clickedPiece;
+
+  if (
+    // two moves in direction1 and one move in direction2
+    // if square exists at that posiion
+    ((square[d1] &&
+      square[d1][d1] &&
+      square[d1][d1][d2] &&
+      // check if next square is in this position
+      square[d1][d1][d2] === nextSquare) ||
+      // two moves in direction2 and one move in direction1
+      // if square exists at that position
+      (square[d2] &&
+        square[d2][d2] &&
+        square[d2][d2][d1] &&
+        // check if next square is in this position
+        square[d2][d2][d1] === nextSquare)) &&
+    // check if next square is empty
+    (nextSquare.piece === null ||
+      // or if piece in square is of opponent player
+      nextSquare.piece.player !== clickedPiece.player)
+  )
+    return true;
+  // movement not possible
   return false;
 };
