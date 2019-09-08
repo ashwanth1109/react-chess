@@ -1,6 +1,6 @@
 import { normalMove, diagonalMove } from "./moves";
 
-const moveQueen = (clickedPiece, nextSquare, moveSuccessfully) => {
+const moveQueen = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
   const rule = () => {
     return (
       normalMove("up", { clickedPiece, nextSquare }, true) ||

@@ -1,4 +1,4 @@
-const moveKing = (clickedPiece, nextSquare, moveSuccessfully) => {
+const moveKing = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
   const currentSquare = clickedPiece.square;
 
   const rule = () => {
