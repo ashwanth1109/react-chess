@@ -1,4 +1,4 @@
-const movePawn = (clickedPiece, nextSquare, moveSuccessfully) => {
+const movePawn = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
   const currentSquare = clickedPiece.square;
 
   const rule = () => {

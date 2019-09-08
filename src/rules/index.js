@@ -1,30 +1,41 @@
 import movePawn from "./pawn";
 import moveKing from "./king";
 import moveQueen from "./queen";
+import moveRook from "./rook";
 
-const movePiece = (clickedPiece, square, setClickedPiece, setPlayer1Turn) => {
+const movePiece = (
+  clickedPiece,
+  nextSquare,
+  setClickedPiece,
+  setPlayer1Turn
+) => {
   const moveSuccessfully = () => {
     // remove piece from original square
     clickedPiece.square.removePiece();
     // let piece know which square it will be placed in
-    clickedPiece.changeSquare(square);
+    clickedPiece.changeSquare(nextSquare);
     // let square know that piece has moved on to it
-    square.setPiece(clickedPiece);
+    nextSquare.setPiece(clickedPiece);
     // remove clickedPiece from state
     setClickedPiece(null);
     // change player turn
     setPlayer1Turn(prev => !prev);
   };
 
+  const appState = { clickedPiece, nextSquare, moveSuccessfully };
+
   switch (clickedPiece.name) {
     case "pawn":
-      movePawn(clickedPiece, square, moveSuccessfully);
+      movePawn(appState);
       break;
     case "king":
-      moveKing(clickedPiece, square, moveSuccessfully);
+      moveKing(appState);
       break;
     case "queen":
-      moveQueen(clickedPiece, square, moveSuccessfully);
+      moveQueen(appState);
+      break;
+    case "rook":
+      moveRook(appState);
       break;
     default:
       moveSuccessfully();
