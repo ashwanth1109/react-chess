@@ -2,6 +2,7 @@ import movePawn from "./pawn";
 import moveKing from "./king";
 import moveQueen from "./queen";
 import moveRook from "./rook";
+import moveBishop from "./bishop";
 
 const movePiece = (
   clickedPiece,
@@ -36,6 +37,9 @@ const movePiece = (
       break;
     case "rook":
       moveRook(appState);
+      break;
+    case "bishop":
+      moveBishop(appState);
       break;
     default:
       moveSuccessfully();
