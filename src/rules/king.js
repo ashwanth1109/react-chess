@@ -1,21 +1,21 @@
-const moveKing = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
-  const currentSquare = clickedPiece.square;
+const moveKing = ({ clicked, next, move }) => {
+  const current = clicked.square;
 
   const rule = () => {
     const movementsPossible =
-      nextSquare.up === currentSquare ||
-      nextSquare.left === currentSquare ||
-      nextSquare.right === currentSquare ||
-      nextSquare.down === currentSquare ||
-      nextSquare.up.left === currentSquare ||
-      nextSquare.up.right === currentSquare ||
-      nextSquare.down.left === currentSquare ||
-      nextSquare.down.right === currentSquare;
+      next.up === current ||
+      next.left === current ||
+      next.right === current ||
+      next.down === current ||
+      next.up.left === current ||
+      next.up.right === current ||
+      next.down.left === current ||
+      next.down.right === current;
 
     return movementsPossible;
   };
 
-  if (rule()) moveSuccessfully();
+  if (rule()) move();
 };
 
 export default moveKing;

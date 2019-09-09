@@ -4,49 +4,46 @@ import moveQueen from "./queen";
 import moveRook from "./rook";
 import moveBishop from "./bishop";
 import moveKnight from "./knight";
+import * as atypes from "../actionTypes";
 
-const movePiece = (
-  clickedPiece,
-  nextSquare,
-  setClickedPiece,
-  setPlayer1Turn
-) => {
-  const moveSuccessfully = () => {
+const movePiece = ({ state, dispatch }, next) => {
+  const { clicked } = state;
+  const move = () => {
     // remove piece from original square
-    clickedPiece.square.removePiece();
+    clicked.square.removePiece();
     // let piece know which square it will be placed in
-    clickedPiece.changeSquare(nextSquare);
+    clicked.changeSquare(next);
     // let square know that piece has moved on to it
-    nextSquare.setPiece(clickedPiece);
+    next.setPiece(clicked);
     // remove clickedPiece from state
-    setClickedPiece(null);
+    dispatch({ type: atypes.REMOVE_CLICKED_PIECE });
     // change player turn
-    setPlayer1Turn(prev => !prev);
+    dispatch({ type: atypes.CHANGE_PLAYER_TURN });
   };
 
-  const appState = { clickedPiece, nextSquare, moveSuccessfully };
+  const moveObj = { clicked, next, move };
 
-  switch (clickedPiece.name) {
+  switch (clicked.name) {
     case "pawn":
-      movePawn(appState);
+      movePawn(moveObj);
       break;
     case "king":
-      moveKing(appState);
+      moveKing(moveObj);
       break;
     case "queen":
-      moveQueen(appState);
+      moveQueen(moveObj);
       break;
     case "rook":
-      moveRook(appState);
+      moveRook(moveObj);
       break;
     case "bishop":
-      moveBishop(appState);
+      moveBishop(moveObj);
       break;
     case "knight":
-      moveKnight(appState);
+      moveKnight(moveObj);
       break;
     default:
-      moveSuccessfully();
+      move();
   }
 };
 

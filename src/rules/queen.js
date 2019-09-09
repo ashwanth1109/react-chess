@@ -1,21 +1,21 @@
 import { normalMove, diagonalMove } from "./moves";
 
-const moveQueen = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
+const moveQueen = ({ clicked, next, move }) => {
   const rule = () => {
     return (
-      normalMove("up", { clickedPiece, nextSquare }, true) ||
-      normalMove("down", { clickedPiece, nextSquare }, true) ||
-      normalMove("left", { clickedPiece, nextSquare }, true) ||
-      normalMove("right", { clickedPiece, nextSquare }, true) ||
-      diagonalMove(["up", "left"], { clickedPiece, nextSquare }, true) ||
-      diagonalMove(["up", "right"], { clickedPiece, nextSquare }, true) ||
-      diagonalMove(["down", "left"], { clickedPiece, nextSquare }, true) ||
-      diagonalMove(["down", "right"], { clickedPiece, nextSquare }, true)
+      normalMove("up", { clicked, next }, true) ||
+      normalMove("down", { clicked, next }, true) ||
+      normalMove("left", { clicked, next }, true) ||
+      normalMove("right", { clicked, next }, true) ||
+      diagonalMove(["up", "left"], { clicked, next }, true) ||
+      diagonalMove(["up", "right"], { clicked, next }, true) ||
+      diagonalMove(["down", "left"], { clicked, next }, true) ||
+      diagonalMove(["down", "right"], { clicked, next }, true)
     );
   };
 
   // if movement rules allow the movement, then move is successful
-  if (rule()) moveSuccessfully();
+  if (rule()) move();
 };
 
 export default moveQueen;

@@ -1,17 +1,17 @@
 import { normalMove } from "./moves";
 
-const moveRook = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
+const moveRook = ({ clicked, next, move }) => {
   const rule = () => {
     return (
-      normalMove("up", { clickedPiece, nextSquare }, true) ||
-      normalMove("down", { clickedPiece, nextSquare }, true) ||
-      normalMove("left", { clickedPiece, nextSquare }, true) ||
-      normalMove("right", { clickedPiece, nextSquare }, true)
+      normalMove("up", { clicked, next }, true) ||
+      normalMove("down", { clicked, next }, true) ||
+      normalMove("left", { clicked, next }, true) ||
+      normalMove("right", { clicked, next }, true)
     );
   };
 
   // if movement rules allow the movement, then move is successful
-  if (rule()) moveSuccessfully();
+  if (rule()) move();
 };
 
 export default moveRook;

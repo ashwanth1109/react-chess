@@ -13,18 +13,18 @@ export const AppContainer = styled.div`
   background: ${c.gray};
 `;
 
-export const GameBoard = styled.div`
+export const Board = styled.div`
   width: 600px;
   height: 600px;
 `;
 
-export const GameRow = styled.div`
+export const Row = styled.div`
   ${fRow}
   width: 100%;
   height: 75px;
 `;
 
-export const GameSquare = styled.div`
+export const Square = styled.div`
   ${center}
   width: 75px;
   height: 75px;
@@ -40,7 +40,7 @@ export const Highlight = styled.div`
   background: ${props => (props.player1 ? c.lRed : c.lBlack)};
 `;
 
-export const GamePiece = styled.div`
+export const Piece = styled.div`
   font-size: 50px;
   color: ${props => (props.player1 ? c.red : c.black)};
 `;

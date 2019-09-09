@@ -1,28 +1,23 @@
-export const normalMove = (direction, appState, anyDistance) => {
-  const { clickedPiece, nextSquare } = appState;
-
-  let currentSquare = clickedPiece.square;
+export const normalMove = (dir, { clicked, next }, anyDistance) => {
+  let current = clicked.square;
 
   // if square exists in that direction
-  if (currentSquare[direction] !== null) {
+  if (current[dir] !== null) {
     if (anyDistance) {
       // piece can move any number of squares in a direction
       // while squares still exist in direction and queen doesnt encounter a piece
-      while (
-        currentSquare[direction] !== null &&
-        currentSquare[direction].piece === null
-      ) {
+      while (current[dir] !== null && current[dir].piece === null) {
         // check if square is where user wants to move queen
-        if (currentSquare[direction] === nextSquare) return true;
+        if (current[dir] === next) return true;
         // keep moving in the same direction
-        currentSquare = currentSquare[direction];
+        current = current[dir];
       }
       // cant move further because edge of board or piece in the way
       if (
-        currentSquare[direction] !== null &&
-        currentSquare[direction].piece !== null &&
-        currentSquare[direction] === nextSquare &&
-        currentSquare[direction].piece.player !== clickedPiece.player
+        current[dir] !== null &&
+        current[dir].piece !== null &&
+        current[dir] === next &&
+        current[dir].piece.player !== clicked.player
       )
         return true;
     } else {
@@ -33,38 +28,31 @@ export const normalMove = (direction, appState, anyDistance) => {
   return false;
 };
 
-export const diagonalMove = (directions, appState, anyDistance) => {
-  const [direction1, direction2] = directions;
-  const { clickedPiece, nextSquare } = appState;
-
-  let currentSquare = clickedPiece.square;
+export const diagonalMove = ([d1, d2], { clicked, next }, anyDistance) => {
+  let current = clicked.square;
 
   // if square exists in the combination of directions
-  if (
-    currentSquare[direction1] !== null &&
-    currentSquare[direction1][direction2] !== null
-  ) {
+  if (current[d1] !== null && current[d1][d2] !== null) {
     if (anyDistance) {
       // piece can move any number of squares in a diagonal direction
       // as long as squares still exist and there are no pieces on them
       while (
-        currentSquare[direction1] !== null &&
-        currentSquare[direction1][direction2] !== null &&
-        currentSquare[direction1][direction2].piece === null
+        current[d1] !== null &&
+        current[d1][d2] !== null &&
+        current[d1][d2].piece === null
       ) {
         // check if square is where user wants to move queen
-        if (currentSquare[direction1][direction2] === nextSquare) return true;
+        if (current[d1][d2] === next) return true;
         // keep moving in the same direction
-        currentSquare = currentSquare[direction1][direction2];
+        current = current[d1][d2];
       }
       // cant move further because edge of board or piece in the way
       if (
-        currentSquare[direction1] !== null &&
-        currentSquare[direction1][direction2] !== null &&
-        currentSquare[direction1][direction2].piece !== null &&
-        currentSquare[direction1][direction2] === nextSquare &&
-        currentSquare[direction1][direction2].piece.player !==
-          clickedPiece.player
+        current[d1] !== null &&
+        current[d1][d2] !== null &&
+        current[d1][d2].piece !== null &&
+        current[d1][d2] === next &&
+        current[d1][d2].piece.player !== clicked.player
       )
         return true;
     } else {
@@ -75,31 +63,28 @@ export const diagonalMove = (directions, appState, anyDistance) => {
   return false;
 };
 
-export const knightMove = (directions, appState) => {
-  const [d1, d2] = directions; // up and left
-  const { clickedPiece, nextSquare } = appState;
-
-  let { square } = clickedPiece;
+export const knightMove = ([d1, d2], { clicked, next }) => {
+  let { square } = clicked;
 
   if (
-    // two moves in direction1 and one move in direction2
+    // two moves in d1 and one move in d2
     // if square exists at that posiion
     ((square[d1] &&
       square[d1][d1] &&
       square[d1][d1][d2] &&
       // check if next square is in this position
-      square[d1][d1][d2] === nextSquare) ||
-      // two moves in direction2 and one move in direction1
+      square[d1][d1][d2] === next) ||
+      // two moves in d2 and one move in d1
       // if square exists at that position
       (square[d2] &&
         square[d2][d2] &&
         square[d2][d2][d1] &&
         // check if next square is in this position
-        square[d2][d2][d1] === nextSquare)) &&
+        square[d2][d2][d1] === next)) &&
     // check if next square is empty
-    (nextSquare.piece === null ||
+    (next.piece === null ||
       // or if piece in square is of opponent player
-      nextSquare.piece.player !== clickedPiece.player)
+      next.piece.player !== clicked.player)
   )
     return true;
   // movement not possible

@@ -1,9 +1,15 @@
-const selectPiece = (p1Turn, square, setClicked) => {
-  const rule = () =>
-    (p1Turn && square.piece.player === 1) ||
-    (!p1Turn && square.piece.player === 2);
+import * as atypes from "../actionTypes";
 
-  if (square.piece !== null && rule()) setClicked(square.piece);
+const selectPiece = ({ state, dispatch }, sq) => {
+  const { p1Turn } = state;
+  const rule = () =>
+    (p1Turn && sq.piece.player === 1) || (!p1Turn && sq.piece.player === 2);
+
+  if (sq.piece !== null && rule())
+    dispatch({
+      type: atypes.SET_CLICKED_PIECE,
+      payload: sq.piece
+    });
 };
 
 export default selectPiece;

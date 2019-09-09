@@ -1,17 +1,17 @@
 import { knightMove } from "./moves";
 
-const moveKnight = ({ clickedPiece, nextSquare, moveSuccessfully }) => {
+const moveKnight = ({ clicked, next, move }) => {
   const rule = () => {
     return (
-      knightMove(["up", "left"], { clickedPiece, nextSquare }, true) ||
-      knightMove(["up", "right"], { clickedPiece, nextSquare }, true) ||
-      knightMove(["down", "left"], { clickedPiece, nextSquare }, true) ||
-      knightMove(["down", "right"], { clickedPiece, nextSquare }, true)
+      knightMove(["up", "left"], { clicked, next }, true) ||
+      knightMove(["up", "right"], { clicked, next }, true) ||
+      knightMove(["down", "left"], { clicked, next }, true) ||
+      knightMove(["down", "right"], { clicked, next }, true)
     );
   };
 
   // if movement rules allow the movement, then move is successful
-  if (rule()) moveSuccessfully();
+  if (rule()) move();
 };
 
 export default moveKnight;
